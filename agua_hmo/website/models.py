@@ -32,19 +32,15 @@ class Users(models.Model):
 
 class Concepts(models.Model):
 
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
-
-    water_consumption = models.DecimalField(max_digits=10, decimal_olaces=2)
-    drainage_fee = models.DecimalField(max_digits=2, decimal_places=2)
-    sanitation = models.DecimalField(max_digits=2, decimal_places=2)
-    red_cross = models.DecimalField(max_digits=2, decimal_places=2)
+    year = models.DecimalField(max_digits=4, decimal_places=0)
+    consumption_per_cubic = models.DecimalField(max_digits=10, decimal_places=2)
+    drainage_fee = models.DecimalField(max_digits=3, decimal_places=2)
+    sanitation = models.DecimalField(max_digits=3, decimal_places=2)
+    red_cross = models.DecimalField(max_digits=3, decimal_places=2)
     firefighters = models.DecimalField(max_digits=2, decimal_places=2)
 
-    monthly_total = models.DecimalField(max_digits=10, decimal_places=2)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-
     def __str__(self):
-        return str(self.total)
+        return str(self.year)
 
 class Tickets(models.Model):
 
@@ -56,3 +52,5 @@ class Tickets(models.Model):
     ticket_year = models.PositiveSmallIntegerField;
     ticket_month = models.PositiveSmallIntegerField;
     water_usage = models.FloatField(null=True)
+
+
