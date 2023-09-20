@@ -30,8 +30,21 @@ class Users(models.Model):
     def __str__(self):
         return str(self.meter_number) + ' : ' + self.user_name
 
-class Contracts(models.Model):
-    ...
+class Concepts(models.Model):
+
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+
+    water_consumption = models.DecimalField(max_digits=10, decimal_olaces=2)
+    drainage_fee = models.DecimalField(max_digits=2, decimal_places=2)
+    sanitation = models.DecimalField(max_digits=2, decimal_places=2)
+    red_cross = models.DecimalField(max_digits=2, decimal_places=2)
+    firefighters = models.DecimalField(max_digits=2, decimal_places=2)
+
+    monthly_total = models.DecimalField(max_digits=10, decimal_places=2)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return str(self.total)
 
 class Tickets(models.Model):
 
