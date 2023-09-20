@@ -32,3 +32,14 @@ class Users(models.Model):
 
 class Contracts(models.Model):
     ...
+
+class Tickets(models.Model):
+
+    meter_number = models.IntegerField(validators=[
+        MinValueValidator(10000, "El número debe ser mayor o igual a 10000."),
+        MaxValueValidator(99999, "El número debe ser menor o igual a 99999.")
+    ])
+
+    ticket_year = models.PositiveSmallIntegerField;
+    ticket_month = models.PositiveSmallIntegerField;
+    water_usage = models.FloatField(null=True)
