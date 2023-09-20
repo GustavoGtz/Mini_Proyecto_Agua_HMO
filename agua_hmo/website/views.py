@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserForm
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
@@ -17,12 +17,12 @@ def manage_payment_concept(request):
 
 
 def createUser(request):
-    form = UserForm()
+    form = UserCreationForm()
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('home')
+    return render(request, 'user_form.html', {"form": form})
 
-    context = {'form': form}
-    return render(request, 'manage_users.html', {})
+#
