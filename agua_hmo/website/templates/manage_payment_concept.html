@@ -1,9 +1,3 @@
-
-
-{% for item in meter_numbers %}
-    <p>{{ item.meter_number }}</p>
-{% endfor %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +10,7 @@
     <form method="post">
         {% csrf_token %}
         <input type="number" name="meter_number" required>
-        <button type="submit">Enviar</button>
+        <button type="submit">Buscar</button>
     </form>
 
     {% if error %}

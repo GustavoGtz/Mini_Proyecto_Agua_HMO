@@ -8,10 +8,8 @@ from .models import Users
 def home(request):
     return render(request, 'home.html', {})
 
-
 def manage_users(request):
     return render(request, 'manage_users.html', {})
-
 
 def manage_payment_concept(request):
     if request.method == 'POST':

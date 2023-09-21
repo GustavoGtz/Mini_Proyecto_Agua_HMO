@@ -47,10 +47,10 @@ class Debts(models.Model):
         MaxValueValidator(99999, "El número debe ser menor o igual a 99999.")
     ])
 
-    ticket_year = models.PositiveSmallIntegerField()
-    ticket_month = models.PositiveSmallIntegerField()
-    ticket_cut = models.PositiveSmallIntegerField()
-    water_usage = models.DecimalField(max_digits=4, decimal_places=4)
+    year = models.PositiveSmallIntegerField()
+    month = models.PositiveSmallIntegerField()
+    cut = models.PositiveSmallIntegerField()
+    water_usage_m3 = models.FloatField()
 
     def __str__(self):
-        return str(self.year) + str(self.month)
+        return str(self.meter_number) + " : " + str(self.year) + "-" + str(self.month)
