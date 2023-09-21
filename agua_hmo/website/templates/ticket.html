@@ -34,34 +34,33 @@
     <p>|----------DATOS DEL CLIENTE---------|</p>
 
     <p class="usuario">
-        NOMBRE DE USUARIO: <br>
-        DIRECCION: <br>
-        TARIFA: <br>
-        MEDIDOR: <br>
+        NOMBRE DE USUARIO: {{ user.user_name }} <br>
+        DIRECCION: {{ user.home_direction }} <br>
+        TARIFA: {{ user.CONTRACT_TYPES }} <br>
+        MEDIDOR: {{ user.meter_number }} <br>
     </p>
 
     <p>|--------DATOS DEL CONSUMO--------|</p>
 
     <p class="usage">
-        MES FACTURADO: <br>
-        CORTE A PARTIR DE: <br>
-        CONSUMO METROS CUB: <br>
-        FACTURADO METROS CUB: <br>
+        MES FACTURADO: {{ Debts.month }} <br>
+        CORTE A PARTIR DE: {{ Debts.cut }} <br>
+        CONSUMO METROS CUB: {{ Debts.water_usage_m3 }} <br>
+        FACTURADO METROS CUB: {{ Debts.water_usage_m3 }} <br>
     </p>
 
     <p>|--------CONCEPTOS DE COBRO--------|</p>
 
     <p class="charge">
-        CONSUMO AGUA: <br>
-        CUOTA DE DRENAJE: <br>
-        IVA DRENAJE: <br>
-        APORTACION CRUZ ROJA: <br>
-        APORTACION BOMBEROS: <br>
-        REDONDEO MES ANTERIOR: <br>
+        CONSUMO AGUA:           {{ Concepts.consumption_per_cubic }} <br>
+        CUOTA DE DRENAJE:       {{ Concepts.drainage_fee }} <br>
+        APORTACION CRUZ ROJA:   {{ Concepts.red_cross }} <br>
+        APORTACION BOMBEROS:    {{ Concepts.firefighters }} <br>
+        REDONDEO MES ANTERIOR:  <br>
         AJUSTE POR REDONDEO: <br>
         <br>
         TOTAL DEL MES: <br>
-        DESCUENTO USUARIO CUMPLIDO: <br>
+        ADEUDO ANTERIOR:  <br>
         TOTAL A PAGAR: <br>
     </p>
 
