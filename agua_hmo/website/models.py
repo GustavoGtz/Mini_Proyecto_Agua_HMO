@@ -23,8 +23,7 @@ class Users(models.Model):
         ])
     user_name = models.CharField(max_length=MAX_CHAR_LENGTH)
     home_direction = models.CharField(max_length=MAX_CHAR_LENGTH)
-    #contract_type = models.CharField(max_length=MAX_CHAR_LENGTH)
-    contract_type = models.DateField(max_length=1, choices=CONTRACT_TYPES)
+    contract_type = models.CharField(max_length=1, choices=CONTRACT_TYPES)
     register_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -38,17 +37,20 @@ class Concepts(models.Model):
     sanitation = models.DecimalField(max_digits=3, decimal_places=2)
     red_cross = models.DecimalField(max_digits=3, decimal_places=2)
     firefighters = models.DecimalField(max_digits=2, decimal_places=2)
-
+    
     def __str__(self):
         return str(self.year)
 
-class Debt(models.Model):
+class Debts(models.Model):
     meter_number = models.IntegerField(validators=[
         MinValueValidator(10000, "El número debe ser mayor o igual a 10000."),
         MaxValueValidator(99999, "El número debe ser menor o igual a 99999.")
     ])
 
-    ticket_year = models.PositiveSmallIntegerField;
-    ticket_month = models.PositiveSmallIntegerField;
-    ticket_cut = models.PositiveSmallIntegerField;
-    water_usage = models.FloatField(null=True)
+    ticket_year = models.PositiveSmallIntegerField()
+    ticket_month = models.PositiveSmallIntegerField()
+    ticket_cut = models.PositiveSmallIntegerField()
+    water_usage = models.DecimalField(max_digits=4, decimal_places=4)
+
+    def __str__(self):
+        return str(self.year) + str(self.month)
