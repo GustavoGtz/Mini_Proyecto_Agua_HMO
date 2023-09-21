@@ -42,7 +42,7 @@ class Concepts(models.Model):
     def __str__(self):
         return str(self.year)
 
-class Tickets(models.Model):
+class Debt(models.Model):
     meter_number = models.IntegerField(validators=[
         MinValueValidator(10000, "El número debe ser mayor o igual a 10000."),
         MaxValueValidator(99999, "El número debe ser menor o igual a 99999.")
