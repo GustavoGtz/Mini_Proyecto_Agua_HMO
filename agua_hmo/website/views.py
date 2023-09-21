@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Users
+from .models import Users, Debts
 
 
 # Create your views here.
@@ -16,7 +16,7 @@ def manage_payment_concept(request):
         user_meter_number = int(request.POST.get('meter_number', 0))
         searched_user = Users.objects.filter(meter_number=user_meter_number)
         if searched_user.exists():
-            return render(request, 'user_manage_payment_concept.html', {'user' : searched_user.first})
+            return render(request, 'user_manage_payment_concept.html', {'user' : searched_user.first, 'debts' : Debts.objects.filter(meter_number=user_meter_number)})
         else:
             return render(request, 'manage_payment_concept.html', {'error': True})
     return render(request, 'manage_payment_concept.html', {'error': False})
@@ -29,6 +29,8 @@ def createUser(request):
             form.save()
             return redirect('home')
     return render(request, 'user_form.html', {"form": form})
+
+
 
 
 

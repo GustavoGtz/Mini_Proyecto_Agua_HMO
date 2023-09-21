@@ -1,35 +1,38 @@
-ADEUDOS
-<p>{{ user.user_name}}</p>
-<p>{{ user.meter_number}}</p>
-
-
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Ejemplo de Tabla HTML</title>
-</head>
 <body>
-    <h1>Tabla de Ejemplo</h1>
+    <h1>Adeudos</h1>
+    Nombre del propietario: <p>{{ user.user_name}}</p>
+    Numero de medidor: <p>{{ user.meter_number}}</p>
     
     <table border="1">
         <tr>
-            <th>Numero de medidor</th>
             <th>Año</th>
             <th>Mes</th>
             <th>Dia de Corte</th>
             <th>Cantidad de Agua</th>
+            <th>Adeudo anterior</th>
+            <th>Generar recibo</th>
+            
         </tr>
+        {% for item in debts %}
         <tr>
-            <td>Fila 1, Columna 1</td>
-            <td>Fila 1, Columna 2</td>
-            <td>Fila 1, Columna 3</td>
+            <td>{{item.year}}</td>
+            <td>{{item.month}}</td>
+            <td>{{item.cut}}</td>
+            <td>{{item.water_usage_m3}}</td>
+            <td>{{item.debt}}</td>
+            <td>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Buscar</button>
+                </form>
+            </td>
         </tr>
-        <tr>
-            <td>Fila 2, Columna 1</td>
-            <td>Fila 2, Columna 2</td>
-            <td>Fila 2, Columna 3</td>
-        </tr>
+        {% endfor %}
     </table>
+    
+   
 </body>
 </html>
 
