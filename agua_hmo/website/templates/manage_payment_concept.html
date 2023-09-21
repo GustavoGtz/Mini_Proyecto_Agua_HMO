@@ -1,1 +1,28 @@
-<h1> CONCEPTOS DE PAGO </h1>
+
+
+{% for item in meter_numbers %}
+    <p>{{ item.meter_number }}</p>
+{% endfor %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de pagos</title>
+</head>
+<body>
+    <h1>Ingresa el numero de su medidor:</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="number" name="meter_number" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if error %}
+    <div style="color: red;">
+        El número ingresado no es válido.
+    </div>
+    {% endif %}
+</body>
+</html>
