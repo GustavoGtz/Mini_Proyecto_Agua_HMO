@@ -50,4 +50,5 @@ class Debt(models.Model):
 
     ticket_year = models.PositiveSmallIntegerField;
     ticket_month = models.PositiveSmallIntegerField;
+    ticket_cut = models.PositiveSmallIntegerField;
     water_usage = models.FloatField(null=True)
