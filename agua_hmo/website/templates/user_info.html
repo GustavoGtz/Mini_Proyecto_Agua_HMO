@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Informacion del usuario</title>
 </head>
 <body>
-
-<p>{{ user.user_name}}</p>
-<p>{{ user.meter_number}}</p>
-<p>{{ user.contract_type}}</p>
-<p>{{ user.home_direction}}</p>
-<p>{{ user.register_date}}</p>
+<h1> Informacion del usuario</h1>
+<p> Usuario: {{ user.user_name}}</p>
+<p>Medidor: {{ user.meter_number}}</p>
+<p>Tipo de contrato: {{ user.contract_type}}</p>
+<p>Direccion: {{ user.home_direction}}</p>
+<p>Fecha de alta: {{ user.register_date}}</p>
 
 <a href="{{request.META.HTTP_REFERER}}">Volver</a>
 

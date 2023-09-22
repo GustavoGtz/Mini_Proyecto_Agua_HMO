@@ -52,6 +52,7 @@ def delete_user(request):
         searched_user = Users.objects.filter(meter_number=user_meter_number)
         if searched_user.exists():
             searched_user.delete()
+            #return render(request, 'delete.html', {})
     return render(request, 'manage_payment_concept.html', {'error': False})
 
 def update_user(request):
@@ -59,16 +60,17 @@ def update_user(request):
         user_meter_number = int(request.POST.get('meter_number', 0))
         searched_user = Users.objects.filter(meter_number=user_meter_number)
         if searched_user.exists():
-            searched_user.delete()
-        form = UserForm()
-        if request.method == 'POST':
-            form = UserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('home')
-        context = {'form': form}
-        return render(request, 'user_form.html', context)
-    return render(request, 'manage_payment_concept.html', {'error': False})
+            user_user_name = request.POST.get('user_name', 0)
+            user_contract_type = request.POST.get('contract_type', 0)
+            user_home_direction = request.POST.get('home_direction', 0)
+            searched_user.update(user_name=user_user_name)
+            searched_user.update(contract_type=user_contract_type)
+            searched_user.update(home_direction=user_home_direction)
+            return redirect('home')
+        else:
+            return render(request, 'update_user.html', {'error' : True})
+
+    return render(request, 'update_user.html', {'error' : False})
 
 def show_user(request):
     if request.method == 'POST':

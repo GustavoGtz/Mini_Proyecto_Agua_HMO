@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+
+    <form method="post">
+        {% csrf_token %}
+        Numero de medidor <input type="number" name="meter_number" required> <br>
+
+        Nombre <input type="text" name="user_name" required> <br>
+        Direccion <input type="text" name="home_direction" required> <br>
+        Tipo de contrato <input type="text" name="contract_type" required> <br>
+
+        <button type="submit" name="action" >Buscar</button>
+    </form>
+
+    {% if error %}
+    <div style="color: red;">
+        El número ingresado no existe.
+    </div>
+    {% endif %}
+
+</body>
+</html>
