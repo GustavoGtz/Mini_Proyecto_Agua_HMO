@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1> Actualizar usuario </h1>
+<div>
     <form method="post">
         {% csrf_token %}
         Numero de medidor: <input type="number" name="meter_number" required> <br>
@@ -21,11 +22,10 @@
 
   <option value="I">Industrial</option>
 
-        <div>
-                    <input type="Submit" value="Submit"/>
-        </div>
+                    <br><input type="Submit" value="Actualizar"/>
 
     </form>
+</div>
 
     {% if error %}
     <div style="color: red;">
