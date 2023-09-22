@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>Usuario</title>
 </head>
+
+<h1> Crear usuario</h1>
 <body>
 
 <div>
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form.as_p }}
+        Numero de medidor: {{ form.meter_number }}
+        <br>
+        Nombre de usuario: {{ form.user_name }}
+        <br>
+        Direccion: {{ form.home_direction }}
+        <br>
+        Tipo de contrato: {{ form.contract_type }}
+        <br>
         <input type="Submit" value="Submit"/>
     </form>
 </div>
