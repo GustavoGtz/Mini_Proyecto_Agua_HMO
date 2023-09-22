@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <div id="user-data" data-username="{{ user.user_name }}" data-meter-number="{{ user.meter_number }}"></div>
     <h1>Adeudos</h1>
-    Nombre del propietario: <p>{{ user.user_name}}</p>
+    Nombre del propietario: <p>{{user.user_name}}</p>
     Numero de medidor: <p>{{ user.meter_number}}</p>
     
     <table border="1">
@@ -12,8 +13,6 @@
             <th>Dia de Corte</th>
             <th>Cantidad de Agua</th>
             <th>Adeudo anterior</th>
-            <th>Generar recibo</th>
-            
         </tr>
         {% for item in debts %}
         <tr>
@@ -22,19 +21,17 @@
             <td>{{item.cut}}</td>
             <td>{{item.water_usage_m3}}</td>
             <td>{{item.debt}}</td>
-            <td>
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit">Buscar</button>
-                </form>
-            </td>
         </tr>
         {% endfor %}
     </table>
-    
-   
+    Generar recibo:
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="meter_number" value="{{ user.meter_number}}">
+        Año: <input type="number" name="year"><br>
+        Mes: <input type="number" name="month"><br>
+        <button type="submit" id="submit_button" name="action" value="create_ticket">Buscar</button>
+    </form>
 </body>
 </html>
-
-
 
