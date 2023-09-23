@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Users, Debts
+from .models import Users, Debts, Concepts
 from .forms import UserForm
 import json
 
@@ -30,8 +30,23 @@ def manage_payment_concept(request):
             user_meter_number = int(request.POST.get('meter_number', 0))
             ticket_year = int(request.POST.get('year', 0))
             ticket_month = int(request.POST.get('month', 0))
+
+            concep_info = Concepts.objects.filter(year=ticket_year)
+            debt_info = Debts.objects.filter(meter_number=user_meter_number, year=ticket_year, month=ticket_month)
+
+            water_cons = concep_info.consumption_per_cubic * debt_info.water_usage_m3
+            drainage = concep_info.drainage_fee
+            sanitation = concep_info.sanitation
+            red_cross = concep_info.red_cross
+            firefighters = concep_info.firefighters
+            total_month = debt_info.total_month
+            previous_debt = debt_info.previous_debt
+            total = water_cons + drainage + sanitation + red_cross + firefighters + total_month + previous_debt
+
+
             return render(request, 'ticket.html', {'user' : Users.objects.filter(meter_number=user_meter_number).first,
-                                                   'ticket' : Debts.objects.filter(meter_number=user_meter_number, year=ticket_year, month=ticket_month).first})
+                                                   'ticket' : Debts.objects.filter(meter_number=user_meter_number, year=ticket_year, month=ticket_month).first,
+                                                   'concepts' : Concepts.objects.filter(year=ticket_year)})
 
         
     return render(request, 'manage_payment_concept.html', {'error': False})
