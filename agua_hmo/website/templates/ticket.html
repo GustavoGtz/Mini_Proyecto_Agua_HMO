@@ -43,24 +43,24 @@
     <p>|--------DATOS DEL CONSUMO--------|</p>
 
     <p class="usage">
-        MES FACTURADO: {{ Debts.month }} <br>
-        CORTE A PARTIR DE: {{ Debts.cut }} <br>
-        CONSUMO METROS CUB: {{ Debts.water_usage_m3 }} <br>
-        FACTURADO METROS CUB: {{ Debts.water_usage_m3 }} <br>
+        MES FACTURADO: {{ ticket.month }} <br>
+        CORTE A PARTIR DE: {{ ticket.cut }} <br>
+        CONSUMO METROS CUB: {{ ticket.water_usage_m3 }} <br>
+        FACTURADO METROS CUB: {{ ticket.water_usage_m3 }} <br>
     </p>
 
     <p>|--------CONCEPTOS DE COBRO--------|</p>
 
     <p class="charge">
-        CONSUMO AGUA:           {{ Concepts.consumption_per_cubic }} <br>
-        CUOTA DE DRENAJE:       {{ Concepts.drainage_fee }} <br>
-        SANEAMIENTO:                                        <BR>
-        APORTACION CRUZ ROJA:   {{ Concepts.red_cross }} <br>
-        APORTACION BOMBEROS:    {{ Concepts.firefighters }} <br>
+        CONSUMO AGUA:           {{ water_cons }}<br>
+        CUOTA DE DRENAJE:       {{ drainage }}<br>
+        SANEAMIENTO:            {{ sanitation }}<BR>
+        APORTACION CRUZ ROJA:   {{ red_cross }}<br>
+        APORTACION BOMBEROS:    {{ firefighters }}<br>
         <br>
-        TOTAL DEL MES: <br>
-        ADEUDO ANTERIOR:  <br>
-        TOTAL A PAGAR: <br>
+        TOTAL DEL MES: {{total_month}}<br>
+        ADEUDO ANTERIOR:  {{previous_debt}}<br>
+        TOTAL A PAGAR: {{total}}<br>
     </p>
 
     <div class="concepts"></div>
