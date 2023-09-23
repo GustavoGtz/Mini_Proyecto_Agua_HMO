@@ -52,6 +52,9 @@ class Debts(models.Model):
     cut = models.PositiveSmallIntegerField()
     water_usage_m3 = models.FloatField()
     debt = models.FloatField()
+    previous_debt = models.FloatField()
+    total_month = models.FloatField()
+
 
     def __str__(self):
         return str(self.meter_number) + " : " + str(self.year) + "-" + str(self.month)
