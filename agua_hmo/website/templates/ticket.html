@@ -25,9 +25,18 @@
             p{
                 font-size: 0.6cm;
             }
+
+        button{
+            font-size: .5cm;
+            margin-top: 0.5cm;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
     
         </style>
     </head>
+
+<button onclick="history.back()">Volver</button>
+
 <body>
     <h1>AVISO DE PAGO</h1>
 
@@ -43,26 +52,26 @@
     <p>|--------DATOS DEL CONSUMO--------|</p>
 
     <p class="usage">
-        MES FACTURADO: {{ ticket.month }} <br>
-        CORTE A PARTIR DE: {{ ticket.cut }} <br>
-        CONSUMO METROS CUB: {{ ticket.water_usage_m3 }} <br>
-        FACTURADO METROS CUB: {{ ticket.water_usage_m3 }} <br>
+        MES FACTURADO:&emsp; {{ ticket.month }} <br>
+        CORTE A PARTIR DE:&emsp; {{ ticket.cut }} <br>
+        CONSUMO METROS CUB:&emsp; {{ ticket.water_usage_m3 }} <br>
+        FACTURADO METROS CUB:&emsp; {{ ticket.water_usage_m3 }} <br>
     </p>
 
     <p>|--------CONCEPTOS DE COBRO--------|</p>
 
     <p class="charge">
-        CONSUMO AGUA:           {{ water_cons }}<br>
-        CUOTA DE DRENAJE:       {{ drainage }}<br>
-        SANEAMIENTO:            {{ sanitation }}<BR>
-        APORTACION CRUZ ROJA:   {{ red_cross }}<br>
-        APORTACION BOMBEROS:    {{ firefighters }}<br>
+        CONSUMO AGUA: &emsp;          {{ water_cons }}<br>
+        CUOTA DE DRENAJE:&emsp;       {{ drainage }}<br>
+        SANEAMIENTO:&emsp;            {{ sanitation }}<BR>
+        APORTACION CRUZ ROJA:&emsp;   {{ red_cross }}<br>
+        APORTACION BOMBEROS:&emsp;    {{ firefighters }}<br>
         <br>
-        TOTAL DEL MES: {{total_month}}<br>
-        ADEUDO ANTERIOR:  {{previous_debt}}<br>
-        TOTAL A PAGAR: {{total}}<br>
+        TOTAL DEL MES:&emsp; {{total_month}}<br>
+        ADEUDO ANTERIOR:&emsp;  {{previous_debt}}<br>
+        TOTAL A PAGAR:&emsp; {{total}}<br>
     </p>
 
-    <div class="concepts"></div>
+    <button>Pagar</button>
 </body>
 </html>
