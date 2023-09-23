@@ -135,7 +135,7 @@ def delete_user(request):
         if searched_user.exists():
             searched_user.delete()
             #return render(request, 'delete.html', {})
-    return render(request, 'manage_payment_concept.html', {'error': False})
+    return render(request, 'delete.html', {'error': False})
 
 def update_user(request):
     if request.method == 'POST':
