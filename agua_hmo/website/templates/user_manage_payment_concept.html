@@ -27,9 +27,12 @@
 
     </style>
 
-<button onclick="history.back()">Volver</button>
-
 <body>
+
+    <form action="http://127.0.0.1:8000">
+        <button type="submit"> Home </button>
+    </form>
+
     <div id="user-data" data-username="{{ user.user_name }}" data-meter-number="{{ user.meter_number }}"></div>
     <h1>Adeudos</h1>
     Nombre del propietario: <p>{{user.user_name}}</p>
