@@ -1,5 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
+    <style>
+
+        h1{
+            display: absolute;
+            font-size: 1cm;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            justify-content: center;
+            margin-left: 1cm;
+        }
+
+        p{
+            font-size: 0.7cm;
+            display: flex;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin-left: 0.5cm;
+            color: black;
+        }
+
+        button{
+            font-size: .5cm;
+            margin-top: 0.5cm;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+
+    </style>
+
+<button onclick="history.back()">Volver</button>
+
 <head>
     <meta charset="UTF-8">
     <title>Informacion del usuario</title>
@@ -11,8 +41,6 @@
 <p>Tipo de contrato: {{ user.contract_type}}</p>
 <p>Direccion: {{ user.home_direction}}</p>
 <p>Fecha de alta: {{ user.register_date}}</p>
-
-<a href="{{request.META.HTTP_REFERER}}">Volver</a>
 
 </body>
 </html>
