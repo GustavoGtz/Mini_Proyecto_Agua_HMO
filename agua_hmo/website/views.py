@@ -95,8 +95,6 @@ def manage_payment_concept(request):
                 random_water_usage = random.uniform(1, 10)
                 water_cost = concep_info.consumption_per_cubic * random_water_usage
                 
-                debt_info = Debts.objects.get(meter_number=user_meter_number, year=current_year, month=current_month)
-
                 total_month_full = (water_cost +
                                          concep_info.drainage_fee * water_cost + 
                                          concep_info.sanitation * water_cost +
