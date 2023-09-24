@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from .models import Users, Debts, Concepts
 from .forms import UserForm
 from django.utils import timezone
+from django.contrib import messages
 import random
 
 
@@ -125,6 +125,8 @@ def create_user(request):
         if form.is_valid():
             form.save()
             return redirect('home')
+        else:
+            messages.error(request, 'Numero de medidor ya existe.')
     context = {'form': form}
     return render(request, 'user_form.html', context)
 
@@ -134,7 +136,9 @@ def delete_user(request):
         searched_user = Users.objects.filter(meter_number=user_meter_number)
         if searched_user.exists():
             searched_user.delete()
-            #return render(request, 'delete.html', {})
+            return redirect('home')
+        else:
+            messages.error(request, 'Numero de medidor no existe.')
     return render(request, 'delete.html', {'error': False})
 
 def update_user(request):

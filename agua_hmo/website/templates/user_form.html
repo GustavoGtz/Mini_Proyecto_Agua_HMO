@@ -44,6 +44,7 @@
 <h1>Crear usuario</h1>
 
 <body>
+
     <div>
         <form method="POST" action="">
             {% csrf_token %}
@@ -58,5 +59,14 @@
             <input type="Submit" value="Crear usuario"/>
         </form>
     </div>
+	{% if messages %}
+		<div class="messages" style="color: red;">
+		{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+				{{ message }}
+			</div>
+		{% endfor %}
+		</div>
+	{% endif %}
 </body>
 </html>

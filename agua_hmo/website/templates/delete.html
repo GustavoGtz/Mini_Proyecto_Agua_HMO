@@ -40,10 +40,14 @@
         <button type="submit" name="action" value="find_user">Eliminar</button>
     </form>
 
-    {% if error %}
-    <div style="color: red;">
-        El número ingresado no es válido.
-    </div>
-    {% endif %}
+	{% if messages %}
+		<div class="messages" style="color: red;">
+		{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+				{{ message }}
+			</div>
+		{% endfor %}
+		</div>
+	{% endif %}
 </body>
 </html>
