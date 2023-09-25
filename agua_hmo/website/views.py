@@ -27,38 +27,51 @@ def manage_payment_concept(request):
             user_meter_number = int(request.POST.get('meter_number', 0))
             ticket_year = int(request.POST.get('year', 0))
             ticket_month = int(request.POST.get('month', 0))
+            debt_info = Debts.objects.filter(meter_number=user_meter_number, year=ticket_year, month=ticket_month)
+            if debt_info.exists():
+                concep_info = Concepts.objects.get(year=ticket_year, contract_type=Users.objects.get(meter_number=user_meter_number).contract_type)
+                debt_info = Debts.objects.get(meter_number=user_meter_number, year=ticket_year, month=ticket_month)
+                water_cost = concep_info.consumption_per_cubic * debt_info.water_usage_m3
+                drainage_cost = concep_info.drainage_fee * water_cost
+                sanitation_cost = concep_info.sanitation * water_cost
+                red_cross_cost = concep_info.red_cross * water_cost
+                firefighters_cost = concep_info.firefighters * water_cost
+                total_month = water_cost + drainage_cost + sanitation_cost + red_cross_cost + firefighters_cost
+                previous_debt = debt_info.previous_debt
+                total = total_month + previous_debt
 
-            concep_info = Concepts.objects.get(year=ticket_year, contract_type=Users.objects.get(meter_number=user_meter_number).contract_type)
-            debt_info = Debts.objects.get(meter_number=user_meter_number, year=ticket_year, month=ticket_month)
+                return render(request, 'ticket.html', {'user' : Users.objects.filter(meter_number=user_meter_number).first,
+                                                    'ticket' : Debts.objects.filter(meter_number=user_meter_number, year=ticket_year, month=ticket_month).first,
+                                                    'water_cons' : water_cost,
+                                                    'drainage' : drainage_cost,
+                                                    'sanitation' : sanitation_cost,
+                                                    'red_cross' : red_cross_cost,
+                                                    'firefighters' : firefighters_cost,
+                                                    'total_month' : total_month,
+                                                    'previous_debt' : previous_debt,
+                                                    'total' : total
+                                                    })
+            else:
+                return render(request, 'user_manage_payment_concept.html', {'debt_error' : False, 'ticket_error' : True,
+                                                                            'user' : Users.objects.filter(meter_number=user_meter_number).first, 'debts' : Debts.objects.filter(meter_number=user_meter_number)})
 
-            water_cost = concep_info.consumption_per_cubic * debt_info.water_usage_m3
-            drainage_cost = concep_info.drainage_fee * water_cost
-            sanitation_cost = concep_info.sanitation * water_cost
-            red_cross_cost = concep_info.red_cross * water_cost
-            firefighters_cost = concep_info.firefighters * water_cost
-            total_month = water_cost + drainage_cost + sanitation_cost + red_cross_cost + firefighters_cost
-            previous_debt = debt_info.previous_debt
-            total = total_month + previous_debt
 
-            return render(request, 'ticket.html', {'user' : Users.objects.filter(meter_number=user_meter_number).first,
-                                                   'ticket' : Debts.objects.filter(meter_number=user_meter_number, year=ticket_year, month=ticket_month).first,
-                                                   'water_cons' : water_cost,
-                                                   'drainage' : drainage_cost,
-                                                   'sanitation' : sanitation_cost,
-                                                   'red_cross' : red_cross_cost,
-                                                   'firefighters' : firefighters_cost,
-                                                   'total_month' : total_month,
-                                                   'previous_debt' : previous_debt,
-                                                   'total' : total
-                                                   })
-        
+        if action == 'delete_debts':
+            user_meter_number = int(request.POST.get('meter_number', 0))
+            searched_user = Users.objects.filter(meter_number=user_meter_number)
+            user_history_of_debts = Debts.objects.filter(meter_number=user_meter_number)
+            if user_history_of_debts.exists():
+                user_history_of_debts.delete()
+            return render(request, 'user_manage_payment_concept.html', {'debt_error' : False, 'ticket_error' : False,
+                                                                            'user' : searched_user.first, 'debts' : Debts.objects.filter(meter_number=user_meter_number)})
+
         if action == 'create_debt':
             user_meter_number = int(request.POST.get('meter_number', 0))
             searched_user = Users.objects.filter(meter_number=user_meter_number)
-            user_meter_number = int(request.POST.get('meter_number', 0))
             user_history_of_debts = Debts.objects.filter(meter_number=user_meter_number)
             if user_history_of_debts.exists():
                 user_last_debt = user_history_of_debts.latest('id')
+                
                 random_water_usage = random.uniform(1, 10)
                 # Function to calculate the next year/month of the new debt
                 def calculate_next_debt_date(year, month):
@@ -68,6 +81,9 @@ def manage_payment_concept(request):
                     else:
                         return(year, new_month)
                 new_debt_date = calculate_next_debt_date(user_last_debt.year, user_last_debt.month)
+                if not(Concepts.objects.filter(year=new_debt_date[0], contract_type=Users.objects.get(meter_number=user_meter_number).contract_type).exists()):
+                    return render(request, 'user_manage_payment_concept.html', {'debt_error' : True, 'ticket_error' : False,
+                                                                            'user' : Users.objects.filter(meter_number=user_meter_number).first, 'debts' : Debts.objects.filter(meter_number=user_meter_number)})
                 concep_info = Concepts.objects.get(year=new_debt_date[0], contract_type=Users.objects.get(meter_number=user_meter_number).contract_type)
                 water_cost = concep_info.consumption_per_cubic * random_water_usage
                 total_month_full = (water_cost +
@@ -112,8 +128,6 @@ def manage_payment_concept(request):
                 new_debt.save()
                 return render(request, 'user_manage_payment_concept.html', {'user' : searched_user.first, 'debts' : Debts.objects.filter(meter_number=user_meter_number)})
 
-                
-            
     return render(request, 'manage_payment_concept.html', {'error': False})
 
 def create_user(request):
@@ -122,7 +136,7 @@ def create_user(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'user_form.html', {'error': False, 'succes' : True,'form': form})
+            return render(request, 'user_form.html', {'error': False, 'succes' : True,})
         else:
             messages.error(request, 'Numero de medidor ya existe.')
     context = {'form': form}
