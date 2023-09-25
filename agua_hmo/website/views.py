@@ -6,7 +6,6 @@ from django.contrib import messages
 import random
 
 
-
 def home(request):
     return render(request, 'home.html', {})
 
@@ -177,8 +176,8 @@ def show_user(request):
         if searched_user.exists():
             return render(request, 'user_info.html', {'user' : searched_user.first})
         else:
-            return render(request, 'manage_payment_concept.html', {'error': True})
-    return render(request, 'manage_payment_concept.html', {'error': False})
+            return render(request, 'search.html', {'error': True})
+    return render(request, 'search.html', {'error': False})
 
 
 
