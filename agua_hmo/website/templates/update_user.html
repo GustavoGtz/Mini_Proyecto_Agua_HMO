@@ -13,7 +13,7 @@
 
         button{
             font-size: .5cm;
-            margin-top: 0.5cm;
+            margin-top: 0cm;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
@@ -33,13 +33,16 @@
 
     </style>
 
-<button onclick="history.back()">Volver</button>
-
 <head>
     <meta charset="UTF-8">
     <title>Actualizar usuario</title>
 </head>
 <body>
+
+    <form action="http://127.0.0.1:8000/manage_users">
+        <button type="submit"> Volver </button>
+    </form>
+
 <h1> Actualizar usuario </h1>
 <div>
     <form method="post">
