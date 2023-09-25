@@ -28,19 +28,22 @@
 
     </style>
 
-<button onclick="history.back()">Volver</button>
-
 <head>
     <meta charset="UTF-8">
     <title>Informacion del usuario</title>
 </head>
 <body>
-<h1> Informacion del usuario</h1>
-<p>Usuario: {{ user.user_name}}</p>
-<p>Medidor: {{ user.meter_number}}</p>
-<p>Tipo de contrato: {{ user.contract_type}}</p>
-<p>Direccion: {{ user.home_direction}}</p>
-<p>Fecha de alta: {{ user.register_date}}</p>
+
+    <form action="http://127.0.0.1:8000/manage_users">
+        <button type="submit"> Volver </button>
+    </form>
+
+    <h1> Informacion del usuario</h1>
+    <p>Usuario: {{ user.user_name}}</p>
+    <p>Medidor: {{ user.meter_number}}</p>
+    <p>Tipo de contrato: {{ user.contract_type}}</p>
+    <p>Direccion: {{ user.home_direction}}</p>
+    <p>Fecha de alta: {{ user.register_date}}</p>
 
 </body>
 </html>
