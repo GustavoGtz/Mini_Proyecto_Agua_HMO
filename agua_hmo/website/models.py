@@ -10,13 +10,13 @@ MAX_CHAR_LENGTH = 20
 
 # Create your models here.
 
-class Users(models.Model):
-    CONTRACT_TYPES = (
+CONTRACT_TYPES = (
         ('Residencial', 'RESIDENCIAL'),
         ('Comercial', 'COMERCIAL'),
         ('Industrial', 'INDUSTRIAL'),
     )
-    
+
+class Users(models.Model):
     meter_number = models.IntegerField(validators=[
             MinValueValidator(10000, "El número debe ser mayor o igual a 10000."),
             MaxValueValidator(99999, "El número debe ser menor o igual a 99999.")
@@ -36,9 +36,10 @@ class Concepts(models.Model):
     sanitation = models.FloatField()
     red_cross = models.FloatField()
     firefighters = models.FloatField()
+    contract_type = models.CharField(max_length=12, choices=CONTRACT_TYPES)
     
     def __str__(self):
-        return str(self.year)
+        return str(self.year) + ' : ' +self.contract_type
 
 class Debts(models.Model):
     meter_number = models.IntegerField(validators=[

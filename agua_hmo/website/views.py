@@ -28,7 +28,7 @@ def manage_payment_concept(request):
             ticket_year = int(request.POST.get('year', 0))
             ticket_month = int(request.POST.get('month', 0))
 
-            concep_info = Concepts.objects.get(year=ticket_year)
+            concep_info = Concepts.objects.get(year=ticket_year, contract_type=Users.objects.get(meter_number=user_meter_number).contract_type)
             debt_info = Debts.objects.get(meter_number=user_meter_number, year=ticket_year, month=ticket_month)
 
             water_cost = concep_info.consumption_per_cubic * debt_info.water_usage_m3
@@ -68,7 +68,7 @@ def manage_payment_concept(request):
                     else:
                         return(year, new_month)
                 new_debt_date = calculate_next_debt_date(user_last_debt.year, user_last_debt.month)
-                concep_info = Concepts.objects.get(year=new_debt_date[0])
+                concep_info = Concepts.objects.get(year=new_debt_date[0], contract_type=Users.objects.get(meter_number=user_meter_number).contract_type)
                 water_cost = concep_info.consumption_per_cubic * random_water_usage
                 total_month_full = (water_cost +
                                          concep_info.drainage_fee * water_cost + 
@@ -91,7 +91,7 @@ def manage_payment_concept(request):
                 current_year = current_date.year
                 current_month = current_date.month
 
-                concep_info = Concepts.objects.get(year=current_year)
+                concep_info = Concepts.objects.get(year=current_year, contract_type=Users.objects.get(meter_number=user_meter_number).contract_type)
                 random_water_usage = random.uniform(1, 10)
                 water_cost = concep_info.consumption_per_cubic * random_water_usage
                 
@@ -122,7 +122,7 @@ def create_user(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return render(request, 'user_form.html', {'error': False, 'succes' : True,'form': form})
         else:
             messages.error(request, 'Numero de medidor ya existe.')
     context = {'form': form}
@@ -134,7 +134,7 @@ def delete_user(request):
         searched_user = Users.objects.filter(meter_number=user_meter_number)
         if searched_user.exists():
             searched_user.delete()
-            return redirect('home')
+            return render(request, 'delete.html', {'error': False, 'succes' : True})
         else:
             messages.error(request, 'Numero de medidor no existe.')
     return render(request, 'delete.html', {'error': False})
@@ -150,7 +150,7 @@ def update_user(request):
             searched_user.update(user_name=user_user_name)
             searched_user.update(contract_type=user_contract_type)
             searched_user.update(home_direction=user_home_direction)
-            return redirect('home')
+            return render(request, 'update_user.html', {'error' : False, 'succes' : True}) 
         else:
             return render(request, 'update_user.html', {'error' : True})
 
