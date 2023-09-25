@@ -135,7 +135,7 @@ def create_user(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'user_form.html', {'error': False, 'succes' : True,})
+            messages.success(request, 'Usuario creado con exito')
         else:
             messages.error(request, 'Numero de medidor ya existe.')
     context = {'form': form}
@@ -163,9 +163,9 @@ def update_user(request):
             searched_user.update(user_name=user_user_name)
             searched_user.update(contract_type=user_contract_type)
             searched_user.update(home_direction=user_home_direction)
-            return render(request, 'update_user.html', {'error' : False, 'succes' : True}) 
+            messages.success(request, 'Usuario actualizado con exito')
         else:
-            return render(request, 'update_user.html', {'error' : True})
+            messages.error(request, 'Numero de medidor no existe.')
 
     return render(request, 'update_user.html', {'error' : False})
 

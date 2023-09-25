@@ -61,20 +61,14 @@
             <input type="Submit" value="Crear usuario"/>
         </form>
     </div>
-	{% if messages %}
-		<div class="messages" style="color: red;">
-		{% for message in messages %}
-			<div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
-				{{ message }}
-			</div>
-		{% endfor %}
-		</div>
-	{% endif %}
-
-    {% if succes %}
-    <div style="color: green;">
-        Usuario creado con exito.
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert" style="color: {% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% endif %};">
+                {{ message }}
+            </div>
+        {% endfor %}
     </div>
-    {% endif %}
+{% endif %}
 </body>
 </html>
